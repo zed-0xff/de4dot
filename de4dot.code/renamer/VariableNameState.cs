@@ -42,8 +42,9 @@ namespace de4dot.code.renamer {
 			vns.propertyNameCreator = new PropertyNameCreator();
 			vns.eventNameCreator = new NameCreator("Event_");
 			vns.genericPropertyNameCreator = new NameCreator("Prop_");
-			vns.staticMethodNameCreator = new NameCreator("smethod_");
-			vns.instanceMethodNameCreator = new NameCreator("method_");
+            // use 'method_' tag intentionally here, makes it harder to mix up static and instance methods in decompiled code
+			vns.staticMethodNameCreator = new UniqueNameCreator("smethod_", "method_");
+			vns.instanceMethodNameCreator = new UniqueNameCreator("method_");
 			return vns;
 		}
 

@@ -67,6 +67,38 @@ namespace de4dot.code.renamer {
 		public override string Create() => prefix + num++;
 	}
 
+    public class UniqueNameCreator : NameCreator {
+        private static Dictionary<string, int> g_counters = new Dictionary<string, int>();
+        private string tag;
+
+        public UniqueNameCreator(string prefix, string tag = null) : base(prefix) {
+            if (tag == null)
+                tag = prefix;
+            this.tag = tag;
+
+            if( !g_counters.ContainsKey(tag) )
+                g_counters[tag] = 0;
+        }
+
+        private string SuffixFromIndex(int index)
+        {
+            string suffix = string.Empty;
+            int remainder;
+
+            // Convert the index to a sequence of characters (a, b, ..., z, aa, ab, ...)
+            while (index >= 0)
+            {
+                remainder = index % 26;
+                suffix = (char)('a' + remainder) + suffix;
+                index = (index / 26) - 1;
+            }
+
+            return suffix;
+        }
+
+		public override string Create() => base.Create() + SuffixFromIndex(g_counters[tag]++);
+    }
+
 	// Like NameCreator but don't add the counter the first time
 	public class NameCreator2 : NameCreatorCounter {
 		string prefix;

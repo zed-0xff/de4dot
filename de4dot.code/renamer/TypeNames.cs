@@ -100,7 +100,7 @@ namespace de4dot.code.renamer {
 
 			var name2 = " " + newName;
 			if (!typeNames.TryGetValue(name2, out var nc))
-				typeNames[name2] = nc = new NameCreator(newName + "_");
+				typeNames[name2] = nc = new UniqueNameCreator(newName + "_");
 
 			typeNames[fullName] = nc;
 			return nc;

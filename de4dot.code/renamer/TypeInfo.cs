@@ -369,7 +369,7 @@ namespace de4dot.code.renamer {
 				else
 					nameCreator = variableNameState.instanceMethodNameCreator;
 				if (!string.IsNullOrEmpty(newName))
-					nameCreator = new NameCreator2(newName);
+					nameCreator = new UniqueNameCreator(newName);
 				RenameMethod(methodDef, variableNameState.GetNewMethodName(info.oldName, nameCreator));
 			}
 		}
@@ -483,7 +483,7 @@ namespace de4dot.code.renamer {
 					if (fieldInfo.renamed)
 						continue;
 
-					fieldInfo.suggestedName = variableNameState.GetNewFieldName(fieldInfo.oldName, new NameCreator2(fieldName));
+					fieldInfo.suggestedName = variableNameState.GetNewFieldName(fieldInfo.oldName, new UniqueNameCreator(fieldName));
 				}
 			}
 		}
